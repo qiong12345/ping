@@ -1,10 +1,8 @@
 #ifndef __PING_H__
 #define __PING_H__
 
-#include <stdio.h>
 #include <sys/time.h>
 #include <netdb.h>
-#include <stdlib.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <string.h>
@@ -13,7 +11,10 @@
 #include <unistd.h>
 #include <sys/socket.h>
 #include <signal.h>
+
 #include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 #define ICMP_DATA_LEN 56		//ICMP默认数据长度
 #define ICMP_HEAD_LEN 8			//ICMP默认头部长度
@@ -23,11 +24,11 @@
 #define SEND_NUM 100 			//发送报文数
 #define MAX_WAIT_TIME 3    //最大等待时间
 
-extern struct hostent *pHost;
-extern int sock_icmp;
-extern int nSend;
-extern char *IP;
-
+extern struct hostent *pHost;  //保存的是有关主机的信息
+extern int sock_icmp;  //iCMP套接字
+extern int nSend;   //发送的ICMP报文数目
+extern char *IP;   //IP地址
+ 
 //发送ICMP报文
 void SendPacket(int sock_icmp, struct sockaddr_in *dest_addr, int nSend);
 
