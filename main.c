@@ -9,24 +9,24 @@ char *IP = NULL;
 void Call(int argc, char *argv[])
 {
 
-	struct protoent *protocol;
+	struct protoent *protocol;    //用于提供协议名字和协议号
 	struct sockaddr_in dest_addr; 	//IPv4专用socket地址,保存目的地址
 
-	in_addr_t inaddr;		//ip地址（网络字节序）
+	in_addr_t inaddr;		//ip地址
 
 	if (argc < 2)
 	{
-		printf("Usage: %s [hostname/IP address]\n", argv[0]);
+		printf("Usage: %s  .main/   IP/域名 \n", argv[0]);
 		exit(EXIT_FAILURE);	
 	}
 
-	if ((protocol = getprotobyname("icmp")) == NULL)
-	{
+	if ((protocol = getprotobyname("icmp")) == NULL)   //getprotobyname(const char* name)获取通讯协议的别名
+	{ 
 		perror("getprotobyname");
 		exit(EXIT_FAILURE);
 	}
 
-	/* 创建ICMP套接字 */
+	// 创建ICMP套接字 
 	//AF_INET:IPv4, SOCK_RAW:IP协议数据报接口, IPPROTO_ICMP:ICMP协议
 	if ((sock_icmp = socket(PF_INET, SOCK_RAW, protocol->p_proto/*IPPROTO_ICMP*/)) < 0)
 	{
@@ -36,7 +36,7 @@ void Call(int argc, char *argv[])
 	dest_addr.sin_family = AF_INET;
 
 	/* 将点分十进制ip地址转换为网络字节序 */
-	if ((inaddr = inet_addr(argv[1])) == INADDR_NONE)
+	if ((inaddr = inet_addr(argv[1])) == INADDR_NONE)   //INADDR_NONE是一个32位1的地址，是一个有限广播地址
 	{
 		/* 转换失败，表明是主机名,需通过主机名获取ip */
 		if ((pHost = gethostbyname(argv[1])) == NULL)
