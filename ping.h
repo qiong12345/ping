@@ -21,7 +21,7 @@
 #define SEND_BUFFER_SIZE 128		//发送缓冲区大小
 #define RECV_BUFFER_SIZE 128		//接收缓冲区大小
 #define SEND_NUM 100 			//发送报文数
-#define MAX_WAIT_TIME 3
+#define MAX_WAIT_TIME 3    //最大等待时间
 
 extern struct hostent *pHost;
 extern int sock_icmp;
